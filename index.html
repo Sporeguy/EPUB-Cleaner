@@ -439,7 +439,11 @@ text-align: center;
       textNames.forEach(function (name, i) {
         chain = chain.then(function () {
           return zip.files[name].async('string').then(function (original) {
-            var cleaned = original.replace(/<</g, '\u00ab').replace(/>>/g, '\u00bb');
+            var cleaned = original
+              .replace(/&lt;&lt;/g, '\u00ab')
+              .replace(/&gt;&gt;/g, '\u00bb')
+              .replace(/<</g, '\u00ab')
+              .replace(/>>/g, '\u00bb');
             zip.file(name, cleaned);
             setProgress(30 + Math.round(((i + 1) / textNames.length) * 52));
           });
