@@ -16,21 +16,20 @@
 –paper: #f5f0e8;
 –cream: #ede7d9;
 –accent: #8b3a2a;
-–accent2: #4a6741;
 –mid: #7a6e62;
 –border: #c8bfb0;
 –shadow: rgba(26,20,16,0.12);
 }
 
-html, body {
-min-height: 100%;
+body {
 background: var(–paper);
 color: var(–ink);
 font-family: ‘Lora’, Georgia, serif;
 -webkit-text-size-adjust: 100%;
 }
 
-body {
+/* ── Upload screen ── */
+#uploadScreen {
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -73,7 +72,7 @@ color: var(–border);
 margin-bottom: 8px;
 }
 
-h1 { font-size: 26px; font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; }
+h1 { font-size: 26px; font-weight: 600; line-height: 1.15; }
 h1 em { font-style: italic; color: #c8a882; }
 
 .subtitle {
@@ -86,45 +85,10 @@ line-height: 1.5;
 
 .card-body { padding: 28px; }
 
-.rules {
-background: var(–cream);
-border: 1px solid var(–border);
-border-radius: 3px;
-padding: 14px 16px;
-margin-bottom: 24px;
-display: flex;
-flex-direction: column;
-gap: 8px;
-}
-
-.rule-label {
-font-family: ‘DM Mono’, monospace;
-font-size: 10px;
-letter-spacing: 0.14em;
-text-transform: uppercase;
-color: var(–mid);
-margin-bottom: 2px;
-}
-
-.rule-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-.rule-from, .rule-to {
-font-family: ‘DM Mono’, monospace;
-font-size: 15px;
-background: #fff;
-border: 1px solid var(–border);
-border-radius: 2px;
-padding: 4px 10px;
-color: var(–ink);
-}
-
-.rule-arrow { color: var(–mid); font-size: 13px; }
-.rule-desc { font-size: 11px; color: var(–mid); font-style: italic; }
-
 .drop-zone {
 border: 2px dashed var(–border);
 border-radius: 3px;
-padding: 32px 20px;
+padding: 36px 20px;
 text-align: center;
 cursor: pointer;
 transition: border-color 0.2s, background 0.2s;
@@ -133,7 +97,7 @@ position: relative;
 user-select: none;
 }
 
-.drop-zone:hover, .drop-zone.drag-over { border-color: var(–accent); background: #fdf8f4; }
+.drop-zone:hover { border-color: var(–accent); background: #fdf8f4; }
 
 .drop-zone input[type=“file”] {
 position: absolute;
@@ -145,191 +109,172 @@ width: 100%;
 height: 100%;
 }
 
-.drop-icon { font-size: 36px; line-height: 1; margin-bottom: 12px; }
-.drop-primary { font-size: 14px; font-weight: 600; color: var(–ink); margin-bottom: 4px; }
+.drop-icon { font-size: 40px; line-height: 1; margin-bottom: 12px; }
+.drop-primary { font-size: 15px; font-weight: 600; color: var(–ink); margin-bottom: 4px; }
 .drop-secondary { font-size: 12px; color: var(–mid); font-style: italic; }
 
-.file-selected {
-display: none;
-align-items: center;
-gap: 12px;
-background: #f0f5ef;
-border: 1.5px solid #a8c4a3;
-border-radius: 3px;
-padding: 14px 16px;
-}
-
-.file-selected.visible { display: flex; }
-.file-icon { font-size: 24px; flex-shrink: 0; }
-.file-info { flex: 1; min-width: 0; }
-
-.file-name {
-font-family: ‘DM Mono’, monospace;
-font-size: 12px;
-font-weight: 500;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-color: var(–ink);
-}
-
-.file-size { font-size: 11px; color: var(–mid); margin-top: 2px; }
-
-.file-clear {
-background: none;
-border: none;
-cursor: pointer;
-font-size: 18px;
-color: var(–mid);
-padding: 4px 6px;
-line-height: 1;
-flex-shrink: 0;
--webkit-tap-highlight-color: transparent;
-}
-
-.btn {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-width: 100%;
-margin-top: 16px;
-padding: 16px;
-border: none;
-border-radius: 3px;
-font-family: ‘DM Mono’, monospace;
-font-size: 13px;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-cursor: pointer;
-transition: background 0.15s, transform 0.1s;
--webkit-tap-highlight-color: transparent;
-color: #fff;
--webkit-appearance: none;
-appearance: none;
-}
-
-.btn:active { transform: scale(0.98); }
-
-.btn-clean { background: var(–accent); }
-.btn-clean:hover:not(:disabled) { background: #7a3323; }
-.btn-clean:disabled { background: var(–border); cursor: not-allowed; transform: none; }
-
-.btn-share { background: var(–accent2); display: none; }
-.btn-share.visible { display: flex; }
-.btn-share:hover { background: #3a5432; }
-
 .progress-bar {
-margin-top: 16px;
+margin-top: 20px;
 height: 3px;
 background: var(–cream);
 border-radius: 2px;
 overflow: hidden;
 display: none;
 }
-
 .progress-bar.visible { display: block; }
-
 .progress-fill {
 height: 100%;
 background: var(–accent);
 width: 0%;
 transition: width 0.3s ease;
-border-radius: 2px;
 }
 
 .status {
-margin-top: 14px;
-min-height: 20px;
+margin-top: 12px;
 font-size: 12px;
 font-style: italic;
 color: var(–mid);
 text-align: center;
-line-height: 1.5;
 font-family: ‘DM Mono’, monospace;
+min-height: 18px;
 }
-
-.status.error   { color: var(–accent); }
-.status.success { color: var(–accent2); }
+.status.error { color: var(–accent); }
 
 .card-footer {
-padding: 14px 28px;
+padding: 12px 28px;
 border-top: 1px solid var(–cream);
 font-size: 11px;
 color: var(–mid);
 font-style: italic;
 text-align: center;
 }
+
+/* ── Book screen ── */
+#bookScreen { display: none; }
+
+#bookToolbar {
+position: sticky;
+top: 0;
+z-index: 100;
+background: var(–ink);
+color: var(–paper);
+padding: 10px 16px;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+#bookTitle {
+flex: 1;
+font-family: ‘DM Mono’, monospace;
+font-size: 11px;
+letter-spacing: 0.08em;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+opacity: 0.7;
+}
+
+#btnNewFile {
+background: none;
+border: 1px solid rgba(255,255,255,0.25);
+border-radius: 3px;
+color: var(–paper);
+font-family: ‘DM Mono’, monospace;
+font-size: 10px;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+padding: 5px 10px;
+cursor: pointer;
+flex-shrink: 0;
+-webkit-tap-highlight-color: transparent;
+}
+
+#bookContent {
+max-width: 680px;
+margin: 0 auto;
+padding: 32px 20px 80px;
+}
+
+/* Render the EPUB’s own HTML inside #bookContent,
+but sanitise away scripts/styles and fix image paths */
+#bookContent h1,
+#bookContent h2,
+#bookContent h3,
+#bookContent h4 {
+font-family: ‘Lora’, Georgia, serif;
+font-weight: 600;
+line-height: 1.25;
+margin: 2em 0 0.6em;
+color: var(–ink);
+}
+
+#bookContent h1 { font-size: 1.7em; }
+#bookContent h2 { font-size: 1.35em; }
+#bookContent h3 { font-size: 1.15em; }
+
+#bookContent p {
+font-size: 1.08em;
+line-height: 1.75;
+margin: 0 0 0.9em;
+}
+
+#bookContent em, #bookContent i { font-style: italic; }
+#bookContent strong, #bookContent b { font-weight: 600; }
+
+#bookContent hr {
+border: none;
+border-top: 1px solid var(–border);
+margin: 2em 0;
+}
+
+#bookContent img { max-width: 100%; height: auto; display: block; margin: 1em auto; }
+
+/* Chapter divider between spine items */
+.chapter-break {
+border: none;
+border-top: 2px solid var(–border);
+margin: 3em 0;
+position: relative;
+}
 </style>
 
 </head>
 <body>
 
-<div class="card">
-  <div class="card-header">
-    <div class="eyebrow">Typography Tool</div>
-    <h1>EPUB <em>Cleaner</em></h1>
-    <p class="subtitle">Replaces ASCII angle-quote approximations with proper typographic guillemets.</p>
-  </div>
+<!-- ── Upload screen ── -->
 
-  <div class="card-body">
-
-```
-<div class="rules">
-  <div class="rule-label">Replacements applied</div>
-  <div class="rule-row">
-    <span class="rule-from">&lt;&lt;</span>
-    <span class="rule-arrow">→</span>
-    <span class="rule-to">«</span>
-    <span class="rule-desc">left double angle quotation mark</span>
-  </div>
-  <div class="rule-row">
-    <span class="rule-from">&gt;&gt;</span>
-    <span class="rule-arrow">→</span>
-    <span class="rule-to">»</span>
-    <span class="rule-desc">right double angle quotation mark</span>
+<div id="uploadScreen">
+  <div class="card">
+    <div class="card-header">
+      <div class="eyebrow">Typography Tool</div>
+      <h1>EPUB <em>Cleaner</em></h1>
+      <p class="subtitle">Loads your EPUB as a readable page with « » replacements applied — ready to share into ElevenReader.</p>
+    </div>
+    <div class="card-body">
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" accept=".epub">
+        <div class="drop-icon">📖</div>
+        <div class="drop-primary">Choose an EPUB file</div>
+        <div class="drop-secondary">tap to browse</div>
+      </div>
+      <div class="progress-bar" id="progressBar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+    <div class="card-footer">All processing happens locally — nothing is uploaded.</div>
   </div>
 </div>
 
-<div class="drop-zone" id="dropZone">
-  <input type="file" id="fileInput" accept=".epub">
-  <div class="drop-icon">📖</div>
-  <div class="drop-primary">Choose an EPUB file</div>
-  <div class="drop-secondary">tap to browse</div>
-</div>
+<!-- ── Book screen ── -->
 
-<div class="file-selected" id="fileSelected">
-  <span class="file-icon">📗</span>
-  <div class="file-info">
-    <div class="file-name" id="fileName">—</div>
-    <div class="file-size" id="fileSize">—</div>
+<div id="bookScreen">
+  <div id="bookToolbar">
+    <span id="bookTitle"></span>
+    <button id="btnNewFile">← New file</button>
   </div>
-  <button class="file-clear" id="fileClear" aria-label="Remove file">✕</button>
-</div>
-
-<button class="btn btn-clean" id="btnClean" disabled>Clean EPUB</button>
-
-<button class="btn btn-share" id="btnShare">
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
-    <polyline points="16 6 12 2 8 6"/>
-    <line x1="12" y1="2" x2="12" y2="15"/>
-  </svg>
-  Share / Save to Files
-</button>
-
-<div class="progress-bar" id="progressBar">
-  <div class="progress-fill" id="progressFill"></div>
-</div>
-
-<div class="status" id="status">Select an EPUB file to begin.</div>
-```
-
-  </div>
-
-  <div class="card-footer">
-    All processing happens locally in your browser — no upload, no server.
-  </div>
+  <div id="bookContent"></div>
 </div>
 
 <script>
@@ -338,24 +283,14 @@ text-align: center;
 
   var fileInput    = document.getElementById('fileInput');
   var dropZone     = document.getElementById('dropZone');
-  var fileSelected = document.getElementById('fileSelected');
-  var fileNameEl   = document.getElementById('fileName');
-  var fileSizeEl   = document.getElementById('fileSize');
-  var fileClear    = document.getElementById('fileClear');
-  var btnClean     = document.getElementById('btnClean');
-  var btnShare     = document.getElementById('btnShare');
-  var statusEl     = document.getElementById('status');
   var progressBar  = document.getElementById('progressBar');
   var progressFill = document.getElementById('progressFill');
-
-  var selectedFile = null;
-  var cleanedFile  = null;
-
-  function formatBytes(b) {
-    if (b < 1024) return b + ' B';
-    if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
-    return (b / 1048576).toFixed(1) + ' MB';
-  }
+  var statusEl     = document.getElementById('status');
+  var uploadScreen = document.getElementById('uploadScreen');
+  var bookScreen   = document.getElementById('bookScreen');
+  var bookTitle    = document.getElementById('bookTitle');
+  var bookContent  = document.getElementById('bookContent');
+  var btnNewFile   = document.getElementById('btnNewFile');
 
   function setStatus(msg, type) {
     statusEl.textContent = msg;
@@ -366,143 +301,167 @@ text-align: center;
     progressFill.style.width = pct + '%';
   }
 
-  function selectFile(file) {
-    if (!file) return;
+  fileInput.addEventListener('change', function () {
+    if (this.files && this.files[0]) processEpub(this.files[0]);
+  });
+
+  dropZone.addEventListener('dragover', function (e) { e.preventDefault(); });
+  dropZone.addEventListener('drop', function (e) {
+    e.preventDefault();
+    var file = e.dataTransfer && e.dataTransfer.files[0];
+    if (file) processEpub(file);
+  });
+
+  btnNewFile.addEventListener('click', function () {
+    bookScreen.style.display = 'none';
+    uploadScreen.style.display = 'flex';
+    bookContent.innerHTML = '';
+    fileInput.value = '';
+    setProgress(0);
+    setStatus('');
+    progressBar.classList.remove('visible');
+  });
+
+  function clean(text) {
+    return text.replace(/<</g, '\u00ab').replace(/>>/g, '\u00bb');
+  }
+
+  function processEpub(file) {
     if (!file.name.toLowerCase().endsWith('.epub')) {
       setStatus('Please select a valid .epub file.', 'error');
       return;
     }
-    selectedFile = file;
-    cleanedFile  = null;
-    fileNameEl.textContent = file.name;
-    fileSizeEl.textContent = formatBytes(file.size);
-    dropZone.style.display = 'none';
-    fileSelected.classList.add('visible');
-    btnClean.disabled = false;
-    btnShare.classList.remove('visible');
-    progressBar.classList.remove('visible');
-    setProgress(0);
-    setStatus('Ready. Tap "Clean EPUB" to process.');
-  }
 
-  function clearFile() {
-    selectedFile = null;
-    cleanedFile  = null;
-    fileInput.value = '';
-    dropZone.style.display = '';
-    fileSelected.classList.remove('visible');
-    btnClean.disabled = true;
-    btnShare.classList.remove('visible');
-    progressBar.classList.remove('visible');
-    setProgress(0);
-    setStatus('Select an EPUB file to begin.');
-  }
-
-  fileInput.addEventListener('change', function () {
-    if (this.files && this.files[0]) selectFile(this.files[0]);
-  });
-
-  fileClear.addEventListener('click', clearFile);
-
-  dropZone.addEventListener('dragover', function (e) { e.preventDefault(); dropZone.classList.add('drag-over'); });
-  dropZone.addEventListener('dragleave', function () { dropZone.classList.remove('drag-over'); });
-  dropZone.addEventListener('drop', function (e) {
-    e.preventDefault();
-    dropZone.classList.remove('drag-over');
-    var file = e.dataTransfer && e.dataTransfer.files[0];
-    if (file) selectFile(file);
-  });
-
-  var TEXT_EXTS = /\.(html|htm|xhtml|xml|opf|ncx|css|txt|js)$/i;
-
-  // ── Clean ──────────────────────────────────────────────────────────────────
-  btnClean.addEventListener('click', function () {
-    if (!selectedFile) return;
-
-    btnClean.disabled = true;
-    btnShare.classList.remove('visible');
     progressBar.classList.add('visible');
     setProgress(5);
     setStatus('Reading file…');
 
-    readAsArrayBuffer(selectedFile).then(function (arrayBuffer) {
+    readAsArrayBuffer(file).then(function (buf) {
       setProgress(15);
-      setStatus('Unzipping EPUB…');
-      return JSZip.loadAsync(arrayBuffer);
+      setStatus('Unzipping…');
+      return JSZip.loadAsync(buf);
 
     }).then(function (zip) {
       setProgress(30);
+      setStatus('Parsing EPUB…');
 
-      var allNames  = Object.keys(zip.files);
-      var textNames = allNames.filter(function (n) {
-        return TEXT_EXTS.test(n) && !zip.files[n].dir;
+      // 1. Find and parse container.xml to get OPF path
+      return zip.file('META-INF/container.xml').async('string').then(function (containerXml) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(containerXml, 'application/xml');
+        var rootfile = doc.querySelector('rootfile');
+        var opfPath = rootfile ? rootfile.getAttribute('full-path') : null;
+        if (!opfPath) throw new Error('Could not find OPF file.');
+        return { zip: zip, opfPath: opfPath };
       });
 
-      setStatus('Processing ' + textNames.length + ' file(s)…');
+    }).then(function (ctx) {
+      var zip = ctx.zip;
+      var opfPath = ctx.opfPath;
+      var opfDir  = opfPath.indexOf('/') !== -1 ? opfPath.substring(0, opfPath.lastIndexOf('/') + 1) : '';
 
-      var chain = Promise.resolve();
-      textNames.forEach(function (name, i) {
-        chain = chain.then(function () {
-          return zip.files[name].async('string').then(function (original) {
-            var cleaned = original.replace(/<</g, '«').replace(/>>/g, '»');
-            zip.file(name, cleaned);
-            setProgress(30 + Math.round(((i + 1) / textNames.length) * 52));
+      return zip.file(opfPath).async('string').then(function (opfXml) {
+        setProgress(40);
+        var parser = new DOMParser();
+        var opf    = parser.parseFromString(opfXml, 'application/xml');
+
+        // Build id→href map from manifest
+        var manifestItems = {};
+        opf.querySelectorAll('manifest item').forEach(function (item) {
+          manifestItems[item.getAttribute('id')] = {
+            href: item.getAttribute('href'),
+            type: item.getAttribute('media-type')
+          };
+        });
+
+        // Get spine order
+        var spineRefs = [];
+        opf.querySelectorAll('spine itemref').forEach(function (ref) {
+          var id = ref.getAttribute('idref');
+          if (manifestItems[id]) spineRefs.push(manifestItems[id].href);
+        });
+
+        // Get book title
+        var titleEl = opf.querySelector('metadata title, title');
+        var bookTitleText = titleEl ? titleEl.textContent.trim() : file.name.replace(/\.epub$/i, '');
+
+        return { zip: zip, opfDir: opfDir, spineRefs: spineRefs, title: bookTitleText };
+      });
+
+    }).then(function (ctx) {
+      var zip       = ctx.zip;
+      var opfDir    = ctx.opfDir;
+      var spineRefs = ctx.spineRefs;
+
+      setStatus('Loading chapters…');
+
+      // Load all spine HTML files in order
+      var chain = Promise.resolve([]);
+      spineRefs.forEach(function (href, i) {
+        chain = chain.then(function (htmlChunks) {
+          var fullPath = opfDir + href;
+          // Normalise path (handle ../)
+          fullPath = normalisePath(fullPath);
+          var zipFile = zip.file(fullPath) || zip.file(href);
+          if (!zipFile) return htmlChunks;
+
+          return zipFile.async('string').then(function (html) {
+            setProgress(40 + Math.round(((i + 1) / spineRefs.length) * 55));
+
+            // Apply replacements
+            html = clean(html);
+
+            // Parse and extract body content
+            var parser  = new DOMParser();
+            var doc     = parser.parseFromString(html, 'text/html');
+            var body    = doc.body;
+
+            // Remove script tags
+            body.querySelectorAll('script').forEach(function (el) { el.remove(); });
+            // Remove style tags (we apply our own)
+            body.querySelectorAll('style').forEach(function (el) { el.remove(); });
+            // Remove link tags
+            body.querySelectorAll('link').forEach(function (el) { el.remove(); });
+
+            htmlChunks.push(body.innerHTML);
+            return htmlChunks;
           });
         });
       });
 
-      return chain.then(function () { return zip; });
-
-    }).then(function (zip) {
-      setProgress(84);
-      setStatus('Repacking EPUB…');
-      return zip.generateAsync({
-        type: 'blob',
-        mimeType: 'application/epub+zip',
-        compression: 'DEFLATE',
-        compressionOptions: { level: 6 }
+      return chain.then(function (chunks) {
+        return { chunks: chunks, title: ctx.title };
       });
 
-    }).then(function (blob) {
+    }).then(function (result) {
       setProgress(100);
-      var outName = selectedFile.name.replace(/\.epub$/i, '') + '-cleaned.epub';
-      cleanedFile = new File([blob], outName, { type: 'application/epub+zip' });
-      btnClean.disabled = false;
-      btnShare.classList.add('visible');
-      setStatus('Done! Tap the button below to share or save.', 'success');
+
+      // Render
+      bookTitle.textContent = result.title;
+      bookContent.innerHTML = result.chunks.map(function (chunk, i) {
+        return (i > 0 ? '<hr class="chapter-break">' : '') + chunk;
+      }).join('');
+
+      // Show book screen
+      uploadScreen.style.display = 'none';
+      bookScreen.style.display = 'block';
+      window.scrollTo(0, 0);
 
     }).catch(function (err) {
       console.error(err);
       setStatus('Error: ' + (err.message || 'Something went wrong.'), 'error');
       setProgress(0);
-      btnClean.disabled = false;
     });
-  });
+  }
 
-  // ── Share ──────────────────────────────────────────────────────────────────
-  // This must be a direct synchronous user-gesture handler.
-  // navigator.share() is called immediately (no await before it).
-  btnShare.addEventListener('click', function () {
-    if (!cleanedFile) return;
-
-    if (navigator.share) {
-      // iOS Safari: triggers native share sheet
-      navigator.share({ files: [cleanedFile], title: cleanedFile.name })
-        .catch(function (err) {
-          if (err.name === 'AbortError') return; // user dismissed sheet — fine
-          // Any other error: fall back to blob URL
-          openAsBlobURL(cleanedFile);
-        });
-    } else {
-      // Desktop browsers: open blob URL so browser saves/previews it
-      openAsBlobURL(cleanedFile);
-    }
-  });
-
-  function openAsBlobURL(file) {
-    var url = URL.createObjectURL(file);
-    window.location.href = url;
-    setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
+  function normalisePath(path) {
+    var parts = path.split('/');
+    var result = [];
+    parts.forEach(function (p) {
+      if (p === '..') { result.pop(); }
+      else if (p !== '.') { result.push(p); }
+    });
+    return result.join('/');
   }
 
   function readAsArrayBuffer(file) {
